@@ -1,0 +1,90 @@
+﻿@model TasksViewModel
+@{
+    ViewBag.Title = "Index";
+
+    string comboboxText =
+        Model.SelectedTask != null ?
+        Model.SelectedTask.Name :
+        "Select";
+
+    string allocateButtonStyle =
+        Model.SelectedTask == null ?
+        "disabled" :
+        "";
+
+    string allocateButtonUrl =
+        Model.SelectedTask != null ?
+        "/Allocation/Resources?taskId=" + Model.SelectedTask.Id.ToString()
+        : "#";
+}
+
+@section Scripts
+{
+    <script>
+
+        $("#dropDownTasksUl li").click(function (event) {
+
+            var id = this.id;
+            window.location = "/Allocation/Tasks?taskId=" + id;
+
+        });
+
+    </script>
+}
+
+<div class="container">
+
+    <hr />
+
+    <div class="row">
+
+
+        <div class="col-md-3 dropdown">
+
+            Tasks
+
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropDownTasks" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                @comboboxText
+                <span class="caret"></span>
+            </button>
+            <ul id="dropDownTasksUl" class="dropdown-menu" aria-labelledby="dropDownTasks">
+                @foreach (var task in Model.Tasks)
+                {
+                    <li id="@task.Id">@task.Name</li>
+                }
+            </ul>
+        </div>
+
+
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Resource</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var resource in Model.Resources)
+                {
+                    <tr>
+                        <td>@resource.Resource.Name</td>
+                        <td>@resource.StartDate</td>
+                        <td>@resource.EndDate</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <a class="btn btn-default @allocateButtonStyle" href="@allocateButtonUrl">Allocate resources</a>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+﻿@model ResourceViewModel
+@{
+    ViewBag.Title = "Resources";
+    string comboboxText =
+        Model.SelectedResource != null ?
+        Model.SelectedResource.Name :
+        "Select";
+
+    string selectedResourceId =
+        Model.SelectedResource != null
+        ? Model.SelectedResource.Id.ToString()
+        : "";
+}
+
+@section Scripts
+{
+    <script>
+
+        $(".date").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            minDate: new Date(@Model.Task.StartDate.Year, @Model.Task.StartDate.Month, @Model.Task.StartDate.Day),
+            maxDate: new Date(@Model.Task.EndDate.Year, @Model.Task.EndDate.Month, @Model.Task.EndDate.Day)
+        });
+
+        $("#dropDownTasksUl li").click(function (event) {
+
+            var id = this.id;
+            window.location = "/Allocation/Resources?taskId=@Model.Task.Id&resourceId=" + id;
+
+        });
+
+    </script>
+}
+
+<div class="container">
+
+    <form method="post">
+
+        <hr />
+
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <div class="row">
+
+            <div class="col-md-3 dropdown">
+
+                Resources
+
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropDownTasks" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    @comboboxText
+                    <span class="caret"></span>
+                </button>
+                <ul id="dropDownTasksUl" class="dropdown-menu" aria-labelledby="dropDownTasks">
+                    @foreach (var resource in Model.Resources)
+                    {
+                        <li id="@resource.Id">@resource.Name</li>
+                    }
+                </ul>
+            </div>
+
+            <div class="col-md-3">
+                Start Date
+                <input id="StartDate" name="StartDate" class="date" />
+            </div>
+            <div class="col-md-3">
+                End Date
+                <input id="EndDate" name="EndDate" class="date" />
+            </div>
+
+            <input type="hidden" name="TaskId" id="TaskId" value="@Model.Task.Id" />
+            <input type="hidden" name="ResourceId" id="ResourceId" value="@selectedResourceId" />
+
+        </div>
+
+        <hr />
+
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var task in Model.Tasks)
+                    {
+                        <tr>
+                            <td>@task.Task.Name</td>
+                            <td>@task.StartDate</td>
+                            <td>@task.EndDate</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <hr />
+
+        <div class="row">
+            <input type="submit" class="btn btn-success" value="Save Allocation" />
+            <a class="btn btn-default" href="/Allocation/Tasks?taskId=@Model.Task.Id">Back</a>
+        </div>
+
+    </form>
+
+</div>
