@@ -22,16 +22,5 @@ namespace EMI_CodeAssignment.WebApp.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SIVACS-LAPTOP;Initial Catalog=EMI_CodeAssignmentDb;Integrated Securit" +
-            "y=True")]
-        public string EMI_CodeAssignmentDb {
-            get {
-                return ((string)(this["EMI_CodeAssignmentDb"]));
-            }
-        }
     }
 }
