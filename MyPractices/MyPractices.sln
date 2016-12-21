@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityContainer_Example", "UnityContainer_Example\UnityContainer_Example.csproj", "{065185B1-0121-47C2-A814-34625172262A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOLIDPrinciples_Sample", "SOLIDPrinciples_Sample\SOLIDPrinciples_Sample.csproj", "{75BD9064-D6BF-4E68-A579-85B4BCED613F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObserverPattern_Design_Sample", "ObserverPattern_Design_Sample\ObserverPattern_Design_Sample.csproj", "{EB3B6A87-C483-4E80-AD49-06D3B957D90B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{065185B1-0121-47C2-A814-34625172262A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{065185B1-0121-47C2-A814-34625172262A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{065185B1-0121-47C2-A814-34625172262A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75BD9064-D6BF-4E68-A579-85B4BCED613F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75BD9064-D6BF-4E68-A579-85B4BCED613F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75BD9064-D6BF-4E68-A579-85B4BCED613F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75BD9064-D6BF-4E68-A579-85B4BCED613F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB3B6A87-C483-4E80-AD49-06D3B957D90B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB3B6A87-C483-4E80-AD49-06D3B957D90B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB3B6A87-C483-4E80-AD49-06D3B957D90B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB3B6A87-C483-4E80-AD49-06D3B957D90B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
