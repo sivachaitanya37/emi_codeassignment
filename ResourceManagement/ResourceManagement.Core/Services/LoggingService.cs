@@ -13,6 +13,7 @@ namespace ResourceManagement.Core.Services
     public class LoggingService : ILoggingService
     {
         string loggerCompletePath = ConfigurationManager.AppSettings["LoggerPathWithExtension"];
+
         public void LogDebug(string debugMessage)
         {
             Log("Debug", debugMessage);
@@ -38,7 +39,7 @@ namespace ResourceManagement.Core.Services
             Log("Warning", warningMessage);
         }
 
-        public void Log(string type, string message)
+        private void Log(string type, string message)
         {
             if (!File.Exists(loggerCompletePath))
             {
