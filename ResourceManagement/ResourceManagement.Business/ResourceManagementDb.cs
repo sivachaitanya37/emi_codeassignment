@@ -11,6 +11,16 @@ namespace ResourceManagement.Business
 {
     public class ResourceManagementDb : DbContext, IDbContext
     {
+        public void Delete<T>(T ent) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<T> GetQuery<T>() where T : class
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update<T>(T ent) where T : class
         {
             Entry(ent).State = EntityState.Modified;

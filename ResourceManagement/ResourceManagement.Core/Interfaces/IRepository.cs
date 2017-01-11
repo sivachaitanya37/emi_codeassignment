@@ -11,11 +11,12 @@ namespace ResourceManagement.Core.Interfaces
 {
     public interface IRepository<T> where T : ModelBase
     {
-        IDbContext Db { get; set; }
-
         void Add(T ent);
+
         void Update(T ent);
+
         void Delete(T ent);
+
         void Delete(Guid id);
 
         T FindById(Guid id);

@@ -6,46 +6,58 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using System.Data.Entity;
 
 namespace ResourceManagement.Core.Services
 {
     public class RepositoryBase<T> : IRepository<T> where T : ModelBase
     {
-        public IDbContext Db { get; set; }
+        IDbContext Db;
 
-        public void Add(T ent)
+        public RepositoryBase(IDbContext db)
+        {
+            this.Db = db;
+        }
+
+        public virtual void Add(T ent)
         {
             Db.Set<T>().Add(ent);
         }
 
-        public void Delete(Guid id)
+        public virtual void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var entity = FindById(id);
+            if (entity == null)
+            {
+                throw new KeyNotFoundException($"Entity with given key {id} is not found");
+            }
+            Delete(entity);
         }
 
-        public void Delete(T ent)
+        public virtual void Delete(T ent)
         {
-            throw new NotImplementedException();
+            Db.Delete(ent);
         }
 
-        public T FindById(Guid id)
+        public virtual T FindById(Guid id)
         {
-            throw new NotImplementedException();
+            return Db.GetQuery<T>().Where(item => item.Id == id).FirstOrDefault();
         }
 
-        public Task<T> FindByIdAsync(Guid id)
+        public async virtual Task<T> FindByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await Db.GetQuery<T>().Where(item => item.Id == id).FirstOrDefaultAsync();
+
         }
 
-        public IQueryable<T> GetQuery()
+        public virtual IQueryable<T> GetQuery()
         {
-            throw new NotImplementedException();
+            return Db.GetQuery<T>();
         }
 
-        public void Update(T ent)
+        public virtual void Update(T ent)
         {
-            throw new NotImplementedException();
+            Db.Update(ent);
         }
     }
 }

@@ -8,6 +8,7 @@ namespace ResourceManagement.Core.Interfaces
 {
     public interface IEmailService
     {
-        void Send(List<string> toList, List<string> ccList, string body, string subject);
+        void Send(List<string> toList, List<string> ccList, string body, 
+            string subject);
     }
 }
