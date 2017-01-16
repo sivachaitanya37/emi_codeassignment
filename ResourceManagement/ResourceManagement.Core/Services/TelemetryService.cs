@@ -11,7 +11,12 @@ namespace ResourceManagement.Core.Services
 {
     public class TelemetryService : ITelemetryService
     {
-        TelemetryClient client = new TelemetryClient();
+        TelemetryClient client = null;
+        public TelemetryService(TelemetryClient client)
+        {
+            this.client = client;
+        }
+
         public void LogMetric(Metric metric, int count = 1)
         {
             client.TrackMetric(metric.Title, count);

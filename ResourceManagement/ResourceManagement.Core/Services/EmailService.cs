@@ -11,12 +11,20 @@ namespace ResourceManagement.Core.Services
 {
     public class EmailService : IEmailService
     {
-        string senderEmailAddress = ConfigurationManager.AppSettings["SenderEmailAddress"];
-        string smtpHost = ConfigurationManager.AppSettings["SmtpHost"];
-        string smtpUsername = ConfigurationManager.AppSettings["SmtpUsername"];
-        string smtpPassword = ConfigurationManager.AppSettings["SmtpPassword"];
-        int smtpPort = Convert.ToInt16(ConfigurationManager.AppSettings["SmtpPort"]);
-
+        string senderEmailAddress = string.Empty;
+        string smtpHost = string.Empty;
+        string smtpUsername = string.Empty;
+        string smtpPassword = string.Empty;
+        int smtpPort;
+        public EmailService(string senderEmailAddress, string smtpHost,
+            string smtpUsername, string smtpPassword, int smtpPort)
+        {
+            this.senderEmailAddress = senderEmailAddress;
+            this.smtpHost = smtpHost;
+            this.smtpUsername = smtpUsername;
+            this.smtpPassword = smtpPassword;
+            this.smtpPort = smtpPort;
+        }
         public void Send(List<string> toList, List<string> ccList, string body, string subject)
         {
             #region BuildingMail
@@ -28,14 +36,14 @@ namespace ResourceManagement.Core.Services
             ccList.ForEach(item => mail.CC.Add(item));
             #endregion
 
-            #region SmtpConfiguration
-            SmtpClient smtpClient = new SmtpClient(smtpHost);
-            smtpClient.Port = 123;
-            smtpClient.Credentials = new System.Net.NetworkCredential(smtpUsername, smtpPassword);
-            smtpClient.EnableSsl = true;
-            #endregion
+            using (SmtpClient smtpClient = new SmtpClient(smtpHost))
+            {
+                smtpClient.Port = smtpPort;
+                smtpClient.Credentials = new System.Net.NetworkCredential(smtpUsername, smtpPassword);
+                smtpClient.EnableSsl = true;
 
-            smtpClient.Send(mail);
+                smtpClient.Send(mail);
+            }
         }
     }
 }

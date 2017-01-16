@@ -12,13 +12,8 @@ namespace ResourceManagement.Core.Services
 {
     public class RepositoryBase<T> : IRepository<T> where T : ModelBase
     {
-        IDbContext Db;
-
-        public RepositoryBase(IDbContext db)
-        {
-            this.Db = db;
-        }
-
+        public IDbContext Db { get; set; }
+        
         public virtual void Add(T ent)
         {
             Db.Set<T>().Add(ent);

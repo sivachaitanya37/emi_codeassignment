@@ -12,30 +12,27 @@ namespace ResourceManagement.Core.Factories
 {
     public class RepositoryFactory
     {
-        static Dictionary<Type, Type> repositoryStore = new Dictionary<Type, Type>();
-        //--> static UnityContainer container = new UnityContainer();
+        static UnityContainer container = new UnityContainer();
+
         public static void RegisterRepository<TEntity, TRepository>()
             where TEntity : ModelBase
             where TRepository : IRepository<TEntity>
         {
-            //--> container.RegisterType<typeof(TEntity),typeof(TRepository)>(new PerResolveLifetimeManager());
-            repositoryStore.Add(typeof(TEntity), typeof(TRepository));
+            container.RegisterType(typeof(TEntity), typeof(TRepository), new TransientLifetimeManager());
         }
 
         public static IRepository<TEntity> GetRepositor<TEntity>(IDbContext db)
             where TEntity : ModelBase
         {
-            IRepository<TEntity> requiredRepository = null;
-            if (repositoryStore.Keys.Contains(typeof(TEntity)))
-            {
-                requiredRepository = Activator.CreateInstance(repositoryStore[typeof(TEntity)], db)
-                    as IRepository<TEntity>;
-            }
-            else
+            IRepository<TEntity> requiredRepository = container.Resolve<TEntity>() as IRepository<TEntity>;
+
+            if (requiredRepository == null)
             {
                 requiredRepository = Activator.CreateInstance(typeof(RepositoryBase<TEntity>), db)
                     as IRepository<TEntity>;
             }
+
+            requiredRepository.Db = db;
             return requiredRepository;
         }
 

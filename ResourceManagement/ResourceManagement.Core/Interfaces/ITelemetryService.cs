@@ -10,5 +10,9 @@ namespace ResourceManagement.Core.Interfaces
     public interface ITelemetryService
     {
         void LogMetric(Metric metric, int count = 1);
+
+        void LogExccpetion(Exception ex);
+
+        void LogTrace(string message);
     }
 }
